@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.Paint;
@@ -69,10 +67,6 @@ public class TilesOverlay extends Overlay implements IOverlayMenuProvider {
 	/** For overshooting the tile cache **/
 	private int mOvershootTileCache = 0;
 
-	// Applying filters
-	protected ColorMatrix matrix;
-	protected ColorMatrixColorFilter filter;
-
 	public TilesOverlay(final MapTileProviderBase aTileProvider, final Context aContext) {
 		this(aTileProvider, new DefaultResourceProxyImpl(aContext));
 	}
@@ -84,10 +78,6 @@ public class TilesOverlay extends Overlay implements IOverlayMenuProvider {
 					"You must pass a valid tile provider to the tiles overlay.");
 		}
 		this.mTileProvider = aTileProvider;
-
-		matrix = new ColorMatrix();
-		matrix.setSaturation(0);
-		filter = new ColorMatrixColorFilter(matrix);
 	}
 
 	@Override
@@ -223,11 +213,6 @@ public class TilesOverlay extends Overlay implements IOverlayMenuProvider {
 			final Rect tileRect) {
 		mProjection.toPixelsFromMercator(tileRect.left, tileRect.top, mTilePointMercator);
 		tileRect.offsetTo(mTilePointMercator.x, mTilePointMercator.y);
-
-
-		// TODO temporary applying grayscale color filter for all tiles
-		currentMapTile.setColorFilter(filter);
-
 		currentMapTile.setBounds(tileRect);
 		currentMapTile.draw(c);
 	}

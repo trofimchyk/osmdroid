@@ -54,8 +54,8 @@ public class MyLocationNewOverlay extends Overlay implements IMyLocationConsumer
 	protected final Paint mPaint = new Paint();
 	protected final Paint mCirclePaint = new Paint();
 
-	protected final Bitmap mPersonBitmap;
-	protected final Bitmap mDirectionArrowBitmap;
+	protected Bitmap mPersonBitmap;
+	protected Bitmap mDirectionArrowBitmap;
 
 	protected final MapView mMapView;
 
